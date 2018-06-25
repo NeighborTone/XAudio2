@@ -32,7 +32,6 @@ namespace SoundEngine
 		void GetState();
 
 	public:
-
 		SoundSource();
 		~SoundSource();
 		void Load(const std::string path, bool is3DSound);
@@ -42,6 +41,7 @@ namespace SoundEngine
 		void Pause();
 		void UpDate3DSound(Vec3&& pos, Vec3&& listenerPos);
 		void ExitLoop() const;
+		void Destroy();
 		long long GetCurrentSampleTime();
 		IXAudio2SourceVoice* GetSource();
 		WORD GetChannels();

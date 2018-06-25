@@ -10,7 +10,7 @@ int main()
 	// ƒƒ‚ƒŠƒŠ[ƒNŒŸo
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	SoundEngine::SoundSource s;
-	s.Load("se.wav", true);
+	s.Load("se.ogg", true);
 	SoundEngine::SoundEffect ef;
 	ef.eq.Gain0 = 0.2f;
 	ef.eq.Gain1 = 0.2f;

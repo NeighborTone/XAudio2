@@ -9,23 +9,7 @@ namespace SoundEngine
 
 	SoundSource::~SoundSource()
 	{
-		//ソースの再生を止めてからでないとアクセス違反が起きる
-		data->pSource->Stop(0);
-		if (data->dsp.pMatrixCoefficients != nullptr)
-		{
-			delete data->dsp.pMatrixCoefficients;
-			data->dsp.pMatrixCoefficients = nullptr;
-		}
-		if (data != nullptr)
-		{
-			delete data;
-			data = nullptr;
-		}
-		if (pcm != nullptr)
-		{
-			delete pcm;
-			pcm = nullptr;
-		}
+		Destroy();
 	}
 
 	void SoundSource::Load(const std::string path, bool is3DSound)
@@ -36,7 +20,7 @@ namespace SoundEngine
 		try {
 			if (std::equal(path.begin() + path.find("."), path.end(), str_ogg.begin()))
 			{
-
+				pcm = new Ogg(path);
 			}
 			else if (std::equal(path.begin() + path.find("."), path.end(), str_wav.begin()))
 			{
@@ -44,8 +28,8 @@ namespace SoundEngine
 			}
 
 			HRESULT hr = 0;
-			XAUDIO2_SEND_DESCRIPTOR sendDescription;
-			XAUDIO2_VOICE_SENDS sendList;
+			XAUDIO2_SEND_DESCRIPTOR sendDescription = {0};
+			XAUDIO2_VOICE_SENDS sendList = {0};
 
 			data->is3D = is3DSound;
 
@@ -198,22 +182,22 @@ namespace SoundEngine
 		data->emitter.Position = { pos.x, pos.y, pos.z };
 		data->emitter.OrientFront = { 0, 0, 1 };
 		data->emitter.OrientTop = { 0 , 1, 0 };
-		data->emitter.ChannelCount = voiceDetails.InputChannels;		//ソースのチャンネル数
+		data->emitter.ChannelCount = voiceDetails.InputChannels;	//ソースのチャンネル数
 		data->emitter.ChannelRadius = 1.0f;							//エミッタでの行列の計算のみに使用。この値は0.0f以上であることが必要
 		data->emitter.pChannelAzimuths = emitterAzimuths;	//方位角。チャンネル半径と共に使用される。行列の計算のみに使用
-		data->emitter.InnerRadius = 1.0f;						 //内部半径の計算に使用される値。0.0f ～ MAX_FLTの値を指定
-		data->emitter.InnerRadiusAngle = 1.0f;				//内部角度の計算に使用される値。0.0f ～ X3DAUDIO_PI/4.0 の値を指定
+		data->emitter.InnerRadius = 1.0f;						//内部半径の計算に使用される値。0.0f ～ MAX_FLTの値を指定
+		data->emitter.InnerRadiusAngle = 1.0f;			//内部角度の計算に使用される値。0.0f ～ X3DAUDIO_PI/4.0 の値を指定
 		data->emitter.pVolumeCurve = NULL;				//ボリュームレベル距離カーブ。行列の計算にのみ使用
-		data->emitter.pLFECurve = NULL;						//LFE ロールオフ距離カーブ
-		data->emitter.pLPFDirectCurve = NULL;				//ローパスフィルター(LPF)ダイレクト パス係数距離カーブNULLで規定値
+		data->emitter.pLFECurve = NULL;					//LFE ロールオフ距離カーブ
+		data->emitter.pLPFDirectCurve = NULL;			//ローパスフィルター(LPF)ダイレクト パス係数距離カーブNULLで規定値
 		data->emitter.pLPFReverbCurve = NULL;			//LPFリバーブパス係数距離カーブ
 		data->emitter.pReverbCurve = NULL;				//リバーブセンドレベル距離カーブ。
 		data->emitter.CurveDistanceScaler = 1.6f;		//リスナーに聞こえる範囲
 																			//ほかの計算に影響しない。この値はFLT_MIN～FLT_MAXの範囲にする必要がある
-		data->emitter.DopplerScaler = 1.0f;					//ドップラー偏移効果を強調するために使用するドップラー偏移スケーラー。0.0f ～ FLT_MAX の範囲内にする必要がある
+		data->emitter.DopplerScaler = 1.0f;				//ドップラー偏移効果を強調するために使用するドップラー偏移スケーラー。0.0f ～ FLT_MAX の範囲内にする必要がある
 
-		data->listener.OrientFront = X3DAUDIO_VECTOR(0, 0, 1);			//前方方向の定義
-		data->listener.OrientTop = X3DAUDIO_VECTOR(0, 1, 0);				//上方向の定義
+		data->listener.OrientFront = X3DAUDIO_VECTOR(0, 0, 1);		//前方方向の定義
+		data->listener.OrientTop = X3DAUDIO_VECTOR(0, 1, 0);			//上方向の定義
 		data->listener.pCone = NULL;													//NULLは全方向性と同じ
 		data->listener.Position = X3DAUDIO_VECTOR(listenerPos.x, listenerPos.y, listenerPos.z);
 		data->listener.Velocity = X3DAUDIO_VECTOR(1.0f, 0.0f, 1.0f);	//ドップラー効果に用いるPositionには影響しない
@@ -255,6 +239,27 @@ namespace SoundEngine
 	void SoundSource::ExitLoop() const
 	{
 		data->pSource->ExitLoop();
+	}
+
+	void SoundSource::Destroy()
+	{
+		//ソースの再生を止めてからでないとアクセス違反が起きる
+		data->pSource->Stop(0);
+		if (data->dsp.pMatrixCoefficients != nullptr)
+		{
+			delete data->dsp.pMatrixCoefficients;
+			data->dsp.pMatrixCoefficients = nullptr;
+		}
+		if (data != nullptr)
+		{
+			delete data;
+			data = nullptr;
+		}
+		if (pcm != nullptr)
+		{
+			delete pcm;
+			pcm = nullptr;
+		}
 	}
 
 	long long SoundSource::GetCurrentSampleTime()

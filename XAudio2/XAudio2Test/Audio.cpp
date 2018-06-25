@@ -57,7 +57,6 @@ namespace SoundEngine
 		Create();
 	}
 
-
 	Audio::~Audio()
 	{
 		//追加したコールバックリストを削除

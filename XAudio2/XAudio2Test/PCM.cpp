@@ -25,4 +25,25 @@ namespace SoundEngine
 	{
 		return wav.GetWaveByteSize();
 	}
+
+	Ogg::Ogg(const std::string& path)
+	{
+		Load(path);
+	}
+	bool Ogg::Load(const std::string& path)
+	{
+		return ogg.Load(path);
+	}
+	const WAVEFORMATEX& Ogg::GetWaveFmtEx() const
+	{
+		return ogg.GetWaveFmtEx();
+	}
+	const BYTE* Ogg::GetWaveData() const
+	{
+		return ogg.GetWaveData();
+	}
+	const size_t Ogg::GetWaveByteSize() const
+	{
+		return ogg.GetWaveByteSize();
+	}
 }

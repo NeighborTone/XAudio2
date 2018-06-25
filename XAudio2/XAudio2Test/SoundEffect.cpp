@@ -6,7 +6,6 @@ namespace SoundEngine
 
 	}
 
-
 	SoundEffect::~SoundEffect()
 	{
 	}
@@ -23,8 +22,8 @@ namespace SoundEngine
 		desc.pEffect = effect; // エフェクトへのポインタ
 
 		XAUDIO2_EFFECT_CHAIN chain;
-		chain.pEffectDescriptors = &desc; // Descriptorへのポインタ、複数個接続する場合は配列の先頭
-		chain.EffectCount = 1;     // Descriptorがいくつあるのか
+		chain.pEffectDescriptors = &desc; //Descriptorへのポインタ、複数個接続する場合は配列の先頭
+		chain.EffectCount = 1;     //Descriptorがいくつあるのか
 
 		source.GetSource()->SetEffectChain(&chain);
 		effect->Release();
@@ -138,7 +137,6 @@ namespace SoundEngine
 		rev.DecayTime = reverb.DecayTime;
 		rev.Density = reverb.Density;
 		rev.RoomSize = reverb.RoomSize;
-
 
 		//セットする
 		source.GetSource()->SetEffectParameters(0, &rev, sizeof(XAUDIO2FX_REVERB_PARAMETERS));

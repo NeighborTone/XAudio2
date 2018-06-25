@@ -6,7 +6,6 @@
 //仮実装なので簡単なことしかできない
 namespace SoundEngine
 {
-
 	class SoundEffect
 	{
 	private:
@@ -110,7 +109,7 @@ namespace SoundEngine
 		{
 			float WetDryMix;		//原音にどれくらいエフェクトの音を混ぜるか 0.0f~1.0f
 			float Feedback;			//跳ね返りの強さ 0.0f~1.0f
-			float DelayTime;		//ディレイタイム(ミリ秒)1.0f~2000.0f
+			float DelayTime;			//ディレイタイム(ミリ秒)1.0f~2000.0f
 
 			Delay_DESC() :
 				WetDryMix(FXECHO_DEFAULT_WETDRYMIX),
@@ -122,14 +121,13 @@ namespace SoundEngine
 		struct Limiter_DESC
 		{
 			UINT32 Release;		//1~20
-			UINT32 Loudness;	//1~1800
+			UINT32 Loudness;		//1~1800
 
 			Limiter_DESC() :
 				Release(FXMASTERINGLIMITER_DEFAULT_RELEASE),
 				Loudness(FXMASTERINGLIMITER_DEFAULT_LOUDNESS)
 			{}
 		};
-		private:
 
 	public:
 		Equalizer_DESC eq;

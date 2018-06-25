@@ -19,7 +19,7 @@ namespace SoundEngine
 		{
 			CloseHandle(handle);
 		}
-		//ストリーミング用
+		//ストリーミング用?
 		void __stdcall OnStreamEnd() override
 		{
 			SetEvent(handle);
@@ -55,13 +55,13 @@ namespace SoundEngine
 	private:
 		//コールバック
 		EngineCallBack engineCallBack;
-
+		//作成フラグ、入力チャンネル、およびボイスのサンプルレートに関する情報
 		XAUDIO2_VOICE_DETAILS voiceDetails;
 		//インターフェース
 		ATL::CComPtr<IXAudio2> pXAudio2;
 		//3Dインターフェース
 		X3DAUDIO_HANDLE x3DInstance;
-		//マスターヴォイス(これはCOMではない)
+		//マスタリングヴォイス(これはCOMではない)
 		IXAudio2MasteringVoice* pMaster;
 		//サウンドシステムの初期化、一度だけ作ればよい
 		void Create();
