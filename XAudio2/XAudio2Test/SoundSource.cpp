@@ -143,7 +143,7 @@ namespace SoundEngine
 #if (_WIN32_WINNT >= _WIN32_WINNT_WIN8)
 		data->pSource->GetState(&data->xstate, 0);
 #else
-		pSource->GetState(&xstate);
+		data->pSource->GetState(&xstate);
 #endif
 	}
 
