@@ -1,9 +1,18 @@
+#include <iostream>
 #include "PCM.h"
 namespace SoundEngine
 {
 	Wav::Wav(const std::string & path)
 	{
-		wav.Load(path.c_str());
+		try
+		{
+			if (!Load(path.c_str()))
+				throw "Wav Failed to load";
+		}
+		catch(const char* e)
+		{
+			std::cerr << e << std::endl;
+		}
 	}
 
 	bool Wav::Load(const std::string& path)
@@ -28,7 +37,15 @@ namespace SoundEngine
 
 	Ogg::Ogg(const std::string& path)
 	{
-		Load(path);
+		try
+		{
+			if (!Load(path.c_str()))
+				throw "Ogg Failed to load";
+		}
+		catch (const char* e)
+		{
+			std::cerr << e << std::endl;
+		}
 	}
 	bool Ogg::Load(const std::string& path)
 	{

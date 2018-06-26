@@ -167,4 +167,14 @@ namespace SoundEngine
 		source.GetSource()->SetEffectParameters(0, &limiter, sizeof(FXMASTERINGLIMITER_PARAMETERS));
 	}
 
+	void SoundEffect::Disable(SoundSource& source)
+	{
+		source.GetSource()->DisableEffect(0);
+	}
+
+	void SoundEffect::Enable(SoundSource& source)
+	{
+		source.GetSource()->EnableEffect(0);
+	}
+
 }

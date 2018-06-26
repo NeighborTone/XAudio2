@@ -7,12 +7,12 @@ namespace SoundEngine
 	class PCM
 	{
 	public:
-		PCM() {};
-		virtual ~PCM() {};
+		PCM() = default;
+		virtual ~PCM() = default;
 		virtual bool Load(const std::string &path) = 0;
 		virtual const WAVEFORMATEX& GetWaveFmtEx() const = 0;	//WAVE フォーマットを取得
-		virtual const BYTE* GetWaveData() const = 0;						//Wave データを取得
-		virtual const size_t	GetWaveByteSize() const = 0;					//Wave データのサイズを取得
+		virtual const BYTE* GetWaveData() const = 0;			//Wave データを取得
+		virtual const size_t	GetWaveByteSize() const = 0;	//Wave データのサイズを取得
 	};
 
 	class Wav : public PCM

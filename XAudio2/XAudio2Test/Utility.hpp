@@ -98,7 +98,7 @@ public:
 	* @brief 自分自身を正規化した値のコピーを返します。自身の値は変わりません
 	* @return Vec2
 	*/
-	TemplateVec2  GetNormalize() const
+	TemplateVec2 GetNormalize() const
 	{
 		TemplateVec2 result = *this;
 		result.Normalize();

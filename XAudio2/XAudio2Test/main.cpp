@@ -15,6 +15,7 @@ int main()
 	ef.eq.Gain0 = 0.2f;
 	ef.eq.Gain1 = 0.2f;
 	ef.AttachDelay(s);
+	
 	s.PlayBGM();
 	Vec3 pos;
 	Vec3 lis;
@@ -22,7 +23,11 @@ int main()
 	{
 		if (GetKeyState(VK_ESCAPE) & 0x8000)
 		{
-			break;
+			ef.Disable(s);
+		}
+		if (GetKeyState(VK_SPACE) & 0x8000)
+		{
+			ef.Enable(s);
 		}
 		if (GetKeyState(VK_UP) & 0x8000)
 		{

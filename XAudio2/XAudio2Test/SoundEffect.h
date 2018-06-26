@@ -142,6 +142,8 @@ namespace SoundEngine
 		void AttachDelay(SoundSource& source);
 		void AttachReverb(SoundSource& source);	//âΩåÃÇ©64bitÇæÇ∆ê≥ÇµÇ≠îΩâfÇ≥ÇÍÇ»Ç¢
 		void AttachLimiter(SoundSource& source);
-		
-};
+		void Disable(SoundSource& source);
+		void Enable(SoundSource& source);
+
+	};
 }

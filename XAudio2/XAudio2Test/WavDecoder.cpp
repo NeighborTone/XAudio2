@@ -1,4 +1,6 @@
+#include <iostream>
 #include "WavDecoder.h"
+
 using namespace std;
 
 namespace SoundEngine
